@@ -579,7 +579,7 @@
     }
 
     /* ── TAB 5: FEATURES ─────────────────────────────────── */
-    .filter-pills { display: flex; gap: 8px; margin: 24px 0; flex-wrap: wrap; }
+    .filter-pills { display: flex; gap: 8px; margin: 0 0 20px 0; flex-wrap: wrap; }
     .filter-pill {
       font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 500;
       padding: 7px 16px; border-radius: 999px; cursor: pointer;
@@ -591,23 +591,29 @@
     }
     .feature-table { width: 100%; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border); }
     .feature-header {
-      display: grid; grid-template-columns: 2fr 1fr 1fr 2fr;
+      display: grid; grid-template-columns: 2fr 1fr 2fr;
       background: var(--green-deep); color: white;
-      font-family: 'DM Sans', sans-serif; font-size: 0.72rem; font-weight: 500;
+      font-family: 'DM Sans', sans-serif; font-size: 0.65rem; font-weight: 500;
       text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 10px 20px;
     }
-    .feature-header > div, .feature-row > div { padding: 12px 20px; }
+    .feature-header > div { padding: 0; }
     .feature-row {
-      display: grid; grid-template-columns: 2fr 1fr 1fr 2fr;
+      display: grid; grid-template-columns: 2fr 1fr 2fr;
+      align-items: center;
+      padding: 10px 20px;
+      min-height: 0;
       border-bottom: 1px solid var(--border);
-      font-family: 'DM Sans', sans-serif; font-size: 0.875rem;
+      background: rgba(255,255,255,0.97);
+      font-family: 'DM Sans', sans-serif;
+      transition: background 0.15s;
     }
-    .feature-row:last-child { border-bottom: none; }
-    .feature-row:nth-child(even) { background: var(--cream); }
-    .feature-row:nth-child(odd)  { background: var(--white); }
-    .feature-name  { color: #374151; font-weight: 500; }
-    .feature-phase { color: #374151; }
-    .feature-notes { color: var(--text-soft); font-size: 0.82rem; }
+    .feature-row:hover { background: var(--yellow-pale); }
+    .feature-row:last-child { border-bottom: none; border-radius: 0 0 var(--radius-sm) var(--radius-sm); }
+    .feature-left { display: flex; flex-direction: column; gap: 1px; }
+    .feature-name { font-size: 0.85rem; font-weight: 500; color: var(--text); line-height: 1.3; }
+    .feature-phase { font-size: 0.75rem; color: var(--text-soft); }
+    .feature-notes { font-size: 0.78rem; color: var(--text-mid); line-height: 1.4; }
 
     /* ── TAB 6: PAYMENTS ─────────────────────────────────── */
     .payment-table { width: 100%; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border); }
@@ -721,6 +727,143 @@
       font-family: 'DM Serif Display', serif; font-style: italic;
       font-size: 1.1rem; color: var(--text-soft);
     }
+
+    /* MOBILE RESPONSIVE — max-width: 768px */
+    #mobile-nav { display: none; }
+
+    @media (max-width: 768px) {
+      #top-nav { display: none !important; }
+      #mobile-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0; left: 0; right: 0;
+        height: 64px;
+        z-index: 300;
+        background: linear-gradient(180deg, #1F4232 0%, #162B20 100%);
+        border-top: 1px solid rgba(255,255,255,0.08);
+        align-items: stretch;
+        justify-content: space-around;
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      .mobile-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        gap: 3px;
+        cursor: pointer;
+        color: rgba(255,255,255,0.5);
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        transition: color 0.15s;
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+      }
+      .mobile-nav-item svg { width: 22px; height: 22px; opacity: 0.55; transition: opacity 0.15s; flex-shrink: 0; }
+      .mobile-nav-item.active { color: var(--yellow); }
+      .mobile-nav-item.active svg { opacity: 1; color: var(--yellow); }
+      #app { padding-top: 0; }
+      #content-area { padding: 24px 20px 80px 20px !important; }
+      .text-display { font-size: 1.7rem !important; }
+      .card, .card-green { padding: 20px !important; border-radius: 10px !important; }
+      #welcome-countdown { flex-direction: column !important; align-items: center !important; gap: 8px !important; }
+      .stat-pills { flex-wrap: wrap !important; justify-content: center !important; }
+      #welcome-logo { width: 72px !important; height: 72px !important; }
+      .team-grid { grid-template-columns: 1fr !important; }
+      .headshot-wrap { width: 72px !important; height: 72px !important; }
+      .timeline-grid { grid-template-columns: 1fr !important; }
+      .sprint-sections { grid-template-columns: 1fr !important; }
+      .sprint-grid { grid-template-columns: 1fr !important; }
+      .channel-grid { grid-template-columns: 1fr !important; }
+      .payments-grid { grid-template-columns: 1fr !important; }
+      /* ── Filter pills — horizontal scroll ── */
+      .filter-pills {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        gap: 8px;
+        padding: 0 0 8px 0;
+        margin-bottom: 16px;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+      }
+      .filter-pills::-webkit-scrollbar { display: none; }
+      .filter-pill {
+        flex-shrink: 0;
+        white-space: nowrap;
+        padding: 7px 14px;
+        font-size: 0.75rem;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: rgba(255,255,255,0.08);
+        color: rgba(255,255,255,0.65);
+        cursor: pointer;
+        transition: all 0.15s;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .filter-pill.active {
+        background: var(--yellow);
+        color: var(--green-deep);
+        border-color: var(--yellow);
+        font-weight: 600;
+      }
+
+      /* ── Feature table — desktop header hidden, rows reflowed ── */
+      .feature-header { display: none; }
+
+      .feature-row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 11px 14px;
+        background: rgba(255,255,255,0.97);
+        border-radius: 8px;
+        margin-bottom: 6px;
+        border: 1px solid var(--border);
+        grid-template-columns: unset;
+        min-height: 0;
+      }
+      .feature-row .feature-left {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        flex: 1;
+        min-width: 0;
+      }
+      .feature-row .feature-name {
+        font-size: 0.82rem;
+        font-weight: 500;
+        color: #1A1A1A;
+        line-height: 1.3;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .feature-row .feature-phase {
+        font-size: 0.7rem;
+        color: #6B7280;
+      }
+      .feature-row .feature-notes { display: none; }
+      .feature-row .status-pill {
+        flex-shrink: 0;
+        font-size: 0.68rem;
+        padding: 3px 9px;
+      }
+      .features-list { padding: 0; }
+      .feature-table { border: none; border-radius: 0; }
+    }
+
+    @media (max-width: 480px) {
+      .text-display { font-size: 1.45rem !important; }
+      #content-area { padding: 16px 16px 80px 16px !important; }
+      .mobile-nav-item { font-size: 9px; }
+      .mobile-nav-item svg { width: 20px; height: 20px; }
+    }
+
   </style>
 </head>
 <body>
@@ -1037,22 +1180,120 @@
              Change pill class to match: status-planned | status-in-progress | status-shipped -->
         <div class="feature-table">
           <div class="feature-header">
-            <div>Feature</div><div>Phase</div><div>Status</div><div>Notes</div>
+            <div>Feature</div><div>Status</div><div>Notes</div>
           </div>
-          <div class="feature-row" data-status="planned"><div class="feature-name">User accounts &amp; login</div><div class="feature-phase">Phase 1</div><div><span class="status-pill status-planned">Planned</span></div><div class="feature-notes">Core auth &mdash; required for everything</div></div>
-          <div class="feature-row" data-status="planned"><div class="feature-name">Content Management System</div><div class="feature-phase">Phase 1</div><div><span class="status-pill status-planned">Planned</span></div><div class="feature-notes">Client manages content directly</div></div>
-          <div class="feature-row" data-status="planned"><div class="feature-name">Production hosting &amp; scaling</div><div class="feature-phase">Phase 1</div><div><span class="status-pill status-planned">Planned</span></div><div class="feature-notes">Vercel-based, auto-scaling</div></div>
-          <div class="feature-row" data-status="planned"><div class="feature-name">Usage analytics dashboard</div><div class="feature-phase">Phase 1</div><div><span class="status-pill status-planned">Planned</span></div><div class="feature-notes">Corporate procurement requirement</div></div>
-          <div class="feature-row" data-status="planned"><div class="feature-name">Corporate SSO</div><div class="feature-phase">Phase 1</div><div><span class="status-pill status-planned">Planned</span></div><div class="feature-notes">Enterprise client requirement</div></div>
-          <div class="feature-row" data-status="planned"><div class="feature-name">Accessibility (WCAG)</div><div class="feature-phase">Phase 1</div><div><span class="status-pill status-planned">Planned</span></div><div class="feature-notes">Full compliance pass</div></div>
-          <div class="feature-row" data-status="planned"><div class="feature-name">Self-hosted video &amp; custom player</div><div class="feature-phase">Phase 1</div><div><span class="status-pill status-planned">Planned</span></div><div class="feature-notes">No YouTube dependency</div></div>
-          <div class="feature-row" data-status="planned"><div class="feature-name">25-episode podcast integration</div><div class="feature-phase">Phase 2</div><div><span class="status-pill status-planned">Planned</span></div><div class="feature-notes">8 Billion Perspectives series</div></div>
-          <div class="feature-row" data-status="planned"><div class="feature-name">Habit tracking module</div><div class="feature-phase">Phase 2</div><div><span class="status-pill status-planned">Planned</span></div><div class="feature-notes">Core andCharlie proposition</div></div>
-          <div class="feature-row" data-status="planned"><div class="feature-name">Multilingual content support</div><div class="feature-phase">Phase 2</div><div><span class="status-pill status-planned">Planned</span></div><div class="feature-notes">Language-learning feature set</div></div>
-          <div class="feature-row" data-status="planned"><div class="feature-name">Character IP integration (Charlie van Marley)</div><div class="feature-phase">Phase 2</div><div><span class="status-pill status-planned">Planned</span></div><div class="feature-notes">Brand asset integration</div></div>
-          <div class="feature-row" data-status="planned"><div class="feature-name">Corporate licence management</div><div class="feature-phase">Phase 2</div><div><span class="status-pill status-planned">Planned</span></div><div class="feature-notes">B2B reseller enablement</div></div>
-          <div class="feature-row" data-status="planned"><div class="feature-name">Investor demo mode</div><div class="feature-phase">Phase 2</div><div><span class="status-pill status-planned">Planned</span></div><div class="feature-notes">Pitch-ready showcase layer</div></div>
-          <div class="feature-row" data-status="planned"><div class="feature-name">Design polish pass</div><div class="feature-phase">Phase 3</div><div><span class="status-pill status-planned">Planned</span></div><div class="feature-notes">All screens, all copy, all spacing</div></div>
+          <div class="feature-row" data-status="planned">
+            <div class="feature-left">
+              <span class="feature-name">User accounts &amp; login</span>
+              <span class="feature-phase">Phase 1</span>
+            </div>
+            <span class="status-pill status-planned">Planned</span>
+            <span class="feature-notes">Core auth &mdash; required for everything</span>
+          </div>
+          <div class="feature-row" data-status="planned">
+            <div class="feature-left">
+              <span class="feature-name">Content Management System</span>
+              <span class="feature-phase">Phase 1</span>
+            </div>
+            <span class="status-pill status-planned">Planned</span>
+            <span class="feature-notes">Client manages content directly</span>
+          </div>
+          <div class="feature-row" data-status="planned">
+            <div class="feature-left">
+              <span class="feature-name">Production hosting &amp; scaling</span>
+              <span class="feature-phase">Phase 1</span>
+            </div>
+            <span class="status-pill status-planned">Planned</span>
+            <span class="feature-notes">Vercel-based, auto-scaling</span>
+          </div>
+          <div class="feature-row" data-status="planned">
+            <div class="feature-left">
+              <span class="feature-name">Usage analytics dashboard</span>
+              <span class="feature-phase">Phase 1</span>
+            </div>
+            <span class="status-pill status-planned">Planned</span>
+            <span class="feature-notes">Corporate procurement requirement</span>
+          </div>
+          <div class="feature-row" data-status="planned">
+            <div class="feature-left">
+              <span class="feature-name">Corporate SSO</span>
+              <span class="feature-phase">Phase 1</span>
+            </div>
+            <span class="status-pill status-planned">Planned</span>
+            <span class="feature-notes">Enterprise client requirement</span>
+          </div>
+          <div class="feature-row" data-status="planned">
+            <div class="feature-left">
+              <span class="feature-name">Accessibility (WCAG)</span>
+              <span class="feature-phase">Phase 1</span>
+            </div>
+            <span class="status-pill status-planned">Planned</span>
+            <span class="feature-notes">Full compliance pass</span>
+          </div>
+          <div class="feature-row" data-status="planned">
+            <div class="feature-left">
+              <span class="feature-name">Self-hosted video &amp; custom player</span>
+              <span class="feature-phase">Phase 1</span>
+            </div>
+            <span class="status-pill status-planned">Planned</span>
+            <span class="feature-notes">No YouTube dependency</span>
+          </div>
+          <div class="feature-row" data-status="planned">
+            <div class="feature-left">
+              <span class="feature-name">25-episode podcast integration</span>
+              <span class="feature-phase">Phase 2</span>
+            </div>
+            <span class="status-pill status-planned">Planned</span>
+            <span class="feature-notes">8 Billion Perspectives series</span>
+          </div>
+          <div class="feature-row" data-status="planned">
+            <div class="feature-left">
+              <span class="feature-name">Habit tracking module</span>
+              <span class="feature-phase">Phase 2</span>
+            </div>
+            <span class="status-pill status-planned">Planned</span>
+            <span class="feature-notes">Core andCharlie proposition</span>
+          </div>
+          <div class="feature-row" data-status="planned">
+            <div class="feature-left">
+              <span class="feature-name">Multilingual content support</span>
+              <span class="feature-phase">Phase 2</span>
+            </div>
+            <span class="status-pill status-planned">Planned</span>
+            <span class="feature-notes">Language-learning feature set</span>
+          </div>
+          <div class="feature-row" data-status="planned">
+            <div class="feature-left">
+              <span class="feature-name">Character IP integration (Charlie van Marley)</span>
+              <span class="feature-phase">Phase 2</span>
+            </div>
+            <span class="status-pill status-planned">Planned</span>
+            <span class="feature-notes">Brand asset integration</span>
+          </div>
+          <div class="feature-row" data-status="planned">
+            <div class="feature-left">
+              <span class="feature-name">Corporate licence management</span>
+              <span class="feature-phase">Phase 2</span>
+            </div>
+            <span class="status-pill status-planned">Planned</span>
+            <span class="feature-notes">B2B reseller enablement</span>
+          </div>
+          <div class="feature-row" data-status="planned">
+            <div class="feature-left">
+              <span class="feature-name">Investor demo mode</span>
+              <span class="feature-phase">Phase 2</span>
+            </div>
+            <span class="status-pill status-planned">Planned</span>
+            <span class="feature-notes">Pitch-ready showcase layer</span>
+          </div>
+          <div class="feature-row" data-status="planned">
+            <div class="feature-left">
+              <span class="feature-name">Design polish pass</span>
+              <span class="feature-phase">Phase 3</span>
+            </div>
+            <span class="status-pill status-planned">Planned</span>
+            <span class="feature-notes">All screens, all copy, all spacing</span>
+          </div>
         </div>
       </div>
 
@@ -1144,6 +1385,37 @@ TEMPLATE:
       </div>
 
     </main>
+
+  <nav id="mobile-nav">
+    <div class="mobile-nav-item active" data-tab="tab-welcome">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Welcome</span>
+    </div>
+    <div class="mobile-nav-item" data-tab="tab-team">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <span>Team</span>
+    </div>
+    <div class="mobile-nav-item" data-tab="tab-comms">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>Comms</span>
+    </div>
+    <div class="mobile-nav-item" data-tab="tab-timeline">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span>Timeline</span>
+    </div>
+    <div class="mobile-nav-item" data-tab="tab-features">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      <span>Features</span>
+    </div>
+    <div class="mobile-nav-item" data-tab="tab-payments">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+      <span>Payments</span>
+    </div>
+    <div class="mobile-nav-item" data-tab="tab-sprints">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      <span>Sprints</span>
+    </div>
+  </nav>
   </div><!-- /#app -->
 
   <script>
@@ -1265,15 +1537,15 @@ TEMPLATE:
     // ── 5. NAVIGATION ──────────────────────────────────────
     function switchTab(tabId) {
       document.querySelectorAll('.tab-panel').forEach(p => p.style.display = 'none');
-      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      document.querySelectorAll('.nav-item, .mobile-nav-item').forEach(n => n.classList.remove('active'));
       const target = document.getElementById(tabId);
       target.style.display = 'block';
       target.style.animation = 'none';
       void target.offsetHeight;
       target.style.animation = '';
-      document.querySelector('[data-tab="' + tabId + '"]').classList.add('active');
+      document.querySelectorAll('[data-tab="' + tabId + '"]').forEach(el => el.classList.add('active'));
     }
-    document.querySelectorAll('.nav-item[data-tab]').forEach(item =>
+    document.querySelectorAll('.nav-item[data-tab], .mobile-nav-item[data-tab]').forEach(item =>
       item.addEventListener('click', () => switchTab(item.getAttribute('data-tab')))
     );
 
@@ -1299,7 +1571,7 @@ TEMPLATE:
       document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
       btn.classList.add('active');
       document.querySelectorAll('.feature-row').forEach(row => {
-        row.style.display = (filter === 'all' || row.dataset.status === filter) ? 'grid' : 'none';
+        row.style.display = (filter === 'all' || row.dataset.status === filter) ? '' : 'none';
       });
     }
 
